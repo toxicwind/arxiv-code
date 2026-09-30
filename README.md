@@ -41,6 +41,21 @@ Traditional academic tools rely on **lossy PDF OCR vision models** (Nougat, Mark
 
 ---
 
+## 🔄 Pipeline
+
+```mermaid
+flowchart LR
+    A[arXiv Atom API] --> B[ArxivClient]
+    B --> C[e-Print .tar.gz]
+    C --> D[TexExtractor]
+    D --> E[algorithms + tex_sources]
+    E --> F[CodeMiner]
+    F --> G[GitHub / HF links]
+    D --> H[rich TUI cards]
+    F --> I[streaming JSON]
+```
+
+---
 ## 📦 Installation
 
 ```bash
@@ -108,6 +123,11 @@ python3 -m unittest discover -s tests -v
 
 ---
 
+## 🛡️ Security
+
+`arxiv-code` downloads and unpacks author-supplied `.tar.gz` e-prints from arXiv and parses their LaTeX. Treat unpacked sources as untrusted input: run extraction in a sandbox if you process arbitrary paper IDs, and never execute code found inside a paper without review. No credentials are required — the arXiv API is public.
+
+---
 ## 📄 License
 
 MIT License — Copyright (c) 2026 ToxicWind.
